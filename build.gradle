@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Kevin Thomas
+
+def ghidraInstallDir = System.env.GHIDRA_INSTALL_DIR
+
+if (ghidraInstallDir != null) {
+    apply from: new File(ghidraInstallDir).getCanonicalPath() + "/support/buildExtension.gradle"
+} else {
+    throw new GradleException("GHIDRA_INSTALL_DIR is not defined!")
+}
+
+jar {
+    into('META-INF') {
+        from file('ExtensionPoint.manifest')
+    }
+}
